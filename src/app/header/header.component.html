@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="onClickNavToggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span *ngIf="!mobileQueryMax">MYPOS</span>
+    <span class="flex-fill"></span> <!-- flex fill กระจ่ายพื้นที่ -->
+    <div class="d-flex align-items-center">
+        <button mat-icon-button>
+            <mat-icon>search</mat-icon>
+        </button>
+        <div class="vl"></div>
+        <button mat-icon-button>
+            <mat-icon [matBadge]="demoMailNoti" matBadgeColor="warn">mail_outline</mat-icon>
+        </button>
+        <div class="vl"></div>
+        <button mat-icon-button>
+            <mat-icon [matBadge]="demoNoti" matBadgeColor="warn">notifications_none</mat-icon>
+        </button>
+    </div>
+    <button mat-button [matMenuTriggerFor]="menu">
+        <img class="avatar rounded-circle mx-2"
+            src="https://w0.peakpx.com/wallpaper/158/101/HD-wallpaper-funny-face-halloween-black-face-funny-cat-animal-pisica.jpg"
+            alt="proflie image">
+        <span class="text-truncate">Admin</span>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+            <mat-icon>person_outline</mat-icon>
+            <span>profile</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Logout</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>

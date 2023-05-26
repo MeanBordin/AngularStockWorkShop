@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-md-4">
+        <mat-card class="d-flex flex-row align-items-center mb-2">
+            <img class="icon m-4" src="https://cdn-icons-png.flaticon.com/128/2979/2979677.png" alt="">
+            <div class="d-flex flex-column">
+                <div class="h6 mt-0">Stock</div>
+                <div class="h6 mt-0">0</div>
+            </div>
+        </mat-card>
+    </div>
+    <div class="col-md-4">
+        <mat-card class="d-flex flex-row align-items-center mb-2">
+            <img class="icon m-4" src="https://cdn-icons-png.flaticon.com/128/497/497738.png" alt="">
+            <div class="d-flex flex-column">
+                <div class="h6 mt-0">Defect</div>
+                <div class="h6 mt-0">0</div>
+            </div>
+        </mat-card>
+    </div>
+    <div class="col-md-4">
+        <mat-card class="d-flex flex-row align-items-center">
+            <img class="icon m-4" src="https://cdn-icons-png.flaticon.com/128/4961/4961689.png" alt="">
+            <div class="d-flex flex-column">
+                <div class="h6 mt-0">Out of stock</div>
+                <div class="h6 mt-0">0</div>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+
+<div class="mat-elevation-z8 mt-3 table-responsive">
+    <!-- search filter -->
+    <div class="d-flex justify-content-between align-items-center p-3 search_form">
+        <mat-form-field appearance="outline" class="w-50 full-width">
+            <mat-label>Search products</mat-label>
+            <input [(ngModel)]="textSearch" (keyup)="search($event)" matInput placeholder="name, price, stock">
+            <mat-icon matSuffix *ngIf="!textSearch">search</mat-icon>
+            <button (click)="clearSearch()" mat-icon-button matSuffix *ngIf="textSearch">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+        <button mat-flat-button color="primary" [routerLink]="['/stock/create']">
+            <mat-icon>add</mat-icon>
+            New Product
+        </button>
+    </div>
+
+    <!-- DataTable -->
+    <!-- MatSort -->
+    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z2 w-auto table-striped table-hover">
+        <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Iamge </th>
+            <td mat-cell *matCellDef="let data">
+                <div class="over-lay mx-auto d-block border-top border-left border-right rounded-top">
+                    <img class="img-fluid bg-light rounded-top" [src]="data.image" alt="">
+                    <div class="over-lay-text text-center mat-small text-light"> 1150 </div>
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef class="text-left pl-3"> Name </th>
+            <td mat-cell *matCellDef="let data" class="text-left text-truncate pl-3"> {{ data.name }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef class="text-right pl-3"> Price </th>
+            <td mat-cell *matCellDef="let data" class="text-right pl-3"> {{ data.price | number:'1.2-2' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="stock">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef class="text-center"> Stock </th>
+            <td mat-cell *matCellDef="let data" class="text-center"> {{ data.stock | number }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+            <td mat-cell *matCellDef="let data" class="text-center">
+                <button mat-icon-button>
+                    <mat-icon class="material-icons-outlined text-primary">edit</mat-icon>
+                    <!-- เรียกใช้งาน class="material-icons-outlined" จาก meterial icon-->
+                </button>
+                <button mat-icon-button>
+                    <mat-icon class="material-icons-outlined text-danger">delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumn"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumn"></tr>
+    </table>
+    
+    <!-- Paginator -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [showFirstLastButtons]="true" aria-label="Select page">
+    </mat-paginator>
+</div>
